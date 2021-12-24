@@ -20,24 +20,25 @@ class PostDetail(View):
         return render(request, 'blog/post_detail.html', {'post': post})
 
 
+# class PostNew(View):
+   # def get(self, request):
+       # form = PostForm()
+        # return render(request, 'blog/post_edit.html', {'form': form})
+
+
 class PostNew(View):
     def get(self, request):
         form = PostForm()
         return render(request, 'blog/post_edit.html', {'form': form})
 
-
-class PostNew(View):
-    def get(self, request, pk):
-        if request.method == "POST":
-            form = PostForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                post.published_date = timezone.now()
-                post.save()
+    def post(self, request):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
             return redirect('post_detail', pk=post.pk)
-        else:
-            form = PostForm()
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
