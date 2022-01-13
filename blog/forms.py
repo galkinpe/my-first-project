@@ -1,8 +1,8 @@
 from django import forms
-from .models import Post
+from .models import Record
 
 class PostForm(forms.ModelForm):
     class Meta:
-        model = Post
+        model = Record
         fields = ('title', 'text',)
         
